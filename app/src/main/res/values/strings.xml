@@ -1,3 +1,7 @@
 <resources>
-  <string name="app_name">CatWorld</string>
+
+    <string name="app_name">CatWorld</string>
+    <string name="cats">Cats</string>
+    <string name="favorites">Favorites</string>
+
 </resources>
