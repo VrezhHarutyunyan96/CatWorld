@@ -1,8 +1,8 @@
-package am.vrezh.catworld.ui.adapter
+package am.vrezh.catworld.ui.main
 
 import am.vrezh.catworld.R
-import am.vrezh.catworld.ui.fragments.CatsFragment
-import am.vrezh.catworld.ui.fragments.FavoriteCatsFragment
+import am.vrezh.catworld.ui.cats.view.CatsFragment
+import am.vrezh.catworld.ui.favorites.view.FavoriteCatsFragment
 import android.content.Context
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter

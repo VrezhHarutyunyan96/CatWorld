@@ -2,7 +2,7 @@ package am.vrezh.catworld.di.activity
 
 import am.vrezh.catworld.di.fragment.FragmentComponent
 import am.vrezh.catworld.di.fragment.FragmentModule
-import am.vrezh.catworld.ui.activity.MainActivity
+import am.vrezh.catworld.ui.main.MainActivity
 import dagger.Subcomponent
 
 @ActivityScope

@@ -1,14 +1,14 @@
-package am.vrezh.catworld.ui.fragments
+package am.vrezh.catworld.ui.cats.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 
-class FavoriteCatsFragment : Fragment() {
+class CatsFragment : Fragment() {
 
     companion object {
 
         @JvmStatic
-        fun newInstance() = FavoriteCatsFragment().apply {
+        fun newInstance() = CatsFragment().apply {
             arguments = Bundle().apply {}
         }
 
