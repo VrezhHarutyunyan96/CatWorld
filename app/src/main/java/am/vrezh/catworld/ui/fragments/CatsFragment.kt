@@ -1,4 +1,4 @@
-package am.vrezh.catworld.fragments
+package am.vrezh.catworld.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,7 +1,7 @@
-package am.vrezh.catworld.activity
+package am.vrezh.catworld.ui.activity
 
 import am.vrezh.catworld.R
-import am.vrezh.catworld.adapter.CatsPagerAdapter
+import am.vrezh.catworld.ui.adapter.CatsPagerAdapter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
