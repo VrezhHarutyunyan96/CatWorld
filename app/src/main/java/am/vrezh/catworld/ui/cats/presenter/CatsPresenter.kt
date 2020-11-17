@@ -7,7 +7,7 @@ import am.vrezh.catworld.ui.cats.view.CatsView
 import am.vrezh.catworld.ui.moxy.BaseMvpPresenter
 import com.arellomobile.mvp.InjectViewState
 import timber.log.Timber
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -21,10 +21,10 @@ class CatsPresenter @Inject internal constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadHeroesList()
+        loadCatsList()
     }
 
-    private fun loadHeroesList() {
+    private fun loadCatsList() {
         catsApi.getCats()
             .delay(500, TimeUnit.MILLISECONDS)
             .compose(rxSchedulers.ioToMain())
@@ -36,7 +36,7 @@ class CatsPresenter @Inject internal constructor(
                     viewState.showCats(cats)
                 },
                 { throwable ->
-                    Timber.e(throwable as Throwable, "Error loading heroes list!")
+                    Timber.e(throwable as Throwable, "Error loading cats list!")
                 }
             ).unsubscribeOnDestroy()
     }

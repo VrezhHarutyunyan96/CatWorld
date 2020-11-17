@@ -11,6 +11,6 @@ interface ActivityComponent {
 
     operator fun plus(module: FragmentModule): FragmentComponent
 
-    fun inject(baseActivity: MainActivity)
+    fun inject(mainActivity: MainActivity)
 
 }
