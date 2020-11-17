@@ -1,13 +1,13 @@
 package am.vrezh.catworld.di.app
 
 import am.vrezh.catworld.api.CatsApi
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
@@ -18,7 +18,7 @@ class NetworkModule {
     internal fun provideApiService(
         client: OkHttpClient,
         gson: GsonConverterFactory,
-        rxAdapter: RxJava2CallAdapterFactory
+        rxAdapter: RxJava3CallAdapterFactory
     ): CatsApi {
         val retrofit = Retrofit.Builder()
             .client(client)
@@ -49,8 +49,8 @@ class NetworkModule {
 
     @AppScope
     @Provides
-    internal fun provideRxAdapter(): RxJava2CallAdapterFactory {
-        return RxJava2CallAdapterFactory.create()
+    internal fun provideRxAdapter(): RxJava3CallAdapterFactory {
+        return RxJava3CallAdapterFactory.create()
     }
 
     @Provides
@@ -59,7 +59,7 @@ class NetworkModule {
     }
 
     companion object {
-        private const val BASE_URL = "http://coemygroup.fr/"
+        private const val BASE_URL = "https://api.thecatapi.com/v1/"
     }
 
 }

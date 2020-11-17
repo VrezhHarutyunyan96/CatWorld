@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface CatsApi {
 
-    @GET("")
+    @GET("breeds")
     fun getCats(): Observable<Cats>
 }
