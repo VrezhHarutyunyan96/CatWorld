@@ -25,14 +25,21 @@ class CatsPresenter @Inject internal constructor(
     }
 
     private fun loadCatsList() {
-        catsApi.getCats()
+
+        catsApi.getCats(
+            "small",
+            "RANDOM",
+            10,
+            0,
+            "json"
+        )
             .delay(500, TimeUnit.MILLISECONDS)
             .compose(rxSchedulers.ioToMain())
             .progress()
             .subscribe(
                 { result ->
                     cats.clear()
-                    cats.addAll(result.elements)
+                    cats.addAll(result)
                     viewState.showCats(cats)
                 },
                 { throwable ->

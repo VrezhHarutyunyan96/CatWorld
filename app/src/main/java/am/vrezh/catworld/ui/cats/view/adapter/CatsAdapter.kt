@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CatsAdapter : RecyclerView.Adapter<CatsAdapter.CatsViewHolder>() {
 
-    public var catsList: List<Cat> = listOf()
+    var catsList: List<Cat> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -24,7 +24,7 @@ class CatsAdapter : RecyclerView.Adapter<CatsAdapter.CatsViewHolder>() {
 
     override fun getItemCount(): Int = catsList.size
 
-    class CatsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class CatsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(cat: Cat) {
 
