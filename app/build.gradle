@@ -43,6 +43,7 @@ ext {
     glideVersion = "4.11.0"
     retrofitVersion = "2.9.0"
     okHttpVersion = "4.9.0"
+    roomVersion = "2.2.5"
     multidexVersion = "2.0.1"
 
 }
@@ -96,5 +97,9 @@ dependencies {
 
     //Log
     implementation "com.jakewharton.timber:timber:4.7.1"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
 }
