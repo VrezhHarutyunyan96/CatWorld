@@ -7,16 +7,12 @@ data class Cat(
     val id: String,
     @SerializedName("url")
     val imageUrl: String,
-    val categories: ArrayList<Category>,
-    val breeds: ArrayList<Breed>
-) : Serializable
-
-data class Category(
-    val id: Int,
-    val name: String
+    val breeds: ArrayList<Breed>,
+    val height: Int,
+    val width: Int
 ) : Serializable
 
 data class Breed(
-    val id: Int,
+    val id: String,
     val name: String
 ) : Serializable

@@ -27,7 +27,7 @@ class CatsPresenter @Inject internal constructor(
     private fun loadCatsList() {
 
         catsApi.getCats(
-            "small",
+            "med",
             "RANDOM",
             10,
             0,
