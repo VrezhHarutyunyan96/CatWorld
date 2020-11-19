@@ -9,6 +9,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 interface CatsView : BaseMvpView, MvpProgressView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showCats(catsList: List<Cat>)
+    fun addCats(catsList: List<Cat>)
+
+    fun setPagination()
 
 }

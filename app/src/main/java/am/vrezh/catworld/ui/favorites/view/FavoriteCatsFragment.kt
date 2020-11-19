@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.paginate.Paginate
 import kotlinx.android.synthetic.main.cats_fragment.*
 import javax.inject.Inject
 
@@ -62,8 +63,33 @@ class FavoriteCatsFragment : BaseMvpFragment(), CatsView {
 
     }
 
-    override fun showCats(catsList: List<Cat>) {
-        adapter.setCatsList(catsList)
+    override fun addCats(catsList: List<Cat>) {
+        adapter.addData(catsList)
+    }
+
+    override fun setPagination() {
+
+        val catsPaginateCallback = object : Paginate.Callbacks {
+
+            override fun onLoadMore() {
+                presenter.loadNextPage()
+            }
+
+            override fun isLoading(): Boolean {
+                return presenter.loadingInProgress
+            }
+
+            override fun hasLoadedAllItems(): Boolean {
+                return presenter.hasLoadedAllItems
+            }
+
+        }
+
+        Paginate.with(catsList, catsPaginateCallback)
+            .addLoadingListItem(false)
+            .setLoadingTriggerThreshold(1)
+            .build()
+
     }
 
     override fun showProgress() {

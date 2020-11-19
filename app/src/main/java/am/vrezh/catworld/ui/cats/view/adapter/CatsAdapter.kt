@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_cat.view.*
 
 class CatsAdapter : RecyclerView.Adapter<CatsAdapter.CatsViewHolder>() {
 
-    private var catsList: List<Cat> = listOf()
+    private var catsList: MutableList<Cat> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -31,8 +31,8 @@ class CatsAdapter : RecyclerView.Adapter<CatsAdapter.CatsViewHolder>() {
 
     override fun getItemCount(): Int = catsList.size
 
-    fun setCatsList(catsList: List<Cat>) {
-        this.catsList = catsList
+    fun addData(catsList: List<Cat>) {
+        this.catsList.addAll(catsList)
         notifyDataSetChanged()
     }
 
