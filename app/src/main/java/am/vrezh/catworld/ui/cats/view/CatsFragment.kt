@@ -10,7 +10,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.cats_fragment.*
@@ -32,20 +33,34 @@ class CatsFragment : BaseMvpFragment(), CatsView {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.cats_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setRecyclerView()
+    }
+
+    private fun setRecyclerView() {
 
         catsList.adapter = adapter
-        val mLayoutManager = LinearLayoutManager(requireContext())
-        catsList.layoutManager = mLayoutManager
+        val gridLayoutManager = GridLayoutManager(requireContext(), 1)
+        catsList.layoutManager = gridLayoutManager
+        val dividerItemDecoration = DividerItemDecoration(
+            requireContext(),
+            DividerItemDecoration.VERTICAL
+        )
+        catsList.addItemDecoration(dividerItemDecoration)
+
     }
 
     override fun showCats(catsList: List<Cat>) {
-        adapter.catsList = catsList
+        adapter.setCatsList(catsList)
     }
 
     override fun showProgress() {

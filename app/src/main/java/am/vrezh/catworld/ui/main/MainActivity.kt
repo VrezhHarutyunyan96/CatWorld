@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         val catsPagerAdapter = CatsPagerAdapter(supportFragmentManager, this)
         cats_view_pager.adapter = catsPagerAdapter
+        cats_tab_layout.setupWithViewPager(cats_view_pager)
 
     }
 
