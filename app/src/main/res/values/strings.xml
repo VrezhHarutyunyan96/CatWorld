@@ -3,5 +3,9 @@
     <string name="app_name">CatWorld</string>
     <string name="cats">Cats</string>
     <string name="favorites">Favorites</string>
+    <string name="permission_required">Permission required</string>
+    <string name="permission_required_long">Permission required to save photos from the Web.</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
 
 </resources>

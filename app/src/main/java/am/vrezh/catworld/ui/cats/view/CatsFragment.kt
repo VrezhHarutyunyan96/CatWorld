@@ -6,10 +6,19 @@ import am.vrezh.catworld.di.fragment.FragmentModule
 import am.vrezh.catworld.ui.cats.presenter.CatsPresenter
 import am.vrezh.catworld.ui.cats.view.adapter.CatsAdapter
 import am.vrezh.catworld.ui.moxy.BaseMvpFragment
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.annotation.TargetApi
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -21,7 +30,8 @@ import javax.inject.Inject
 class CatsFragment :
     BaseMvpFragment(),
     CatsView,
-    CatsAdapter.AddFavoriteListener {
+    CatsAdapter.AddFavoriteListener,
+    CatsAdapter.DownloadImageListener {
 
     @Inject
     @InjectPresenter
@@ -30,7 +40,7 @@ class CatsFragment :
     @ProvidePresenter
     fun providePresenter(): CatsPresenter = presenter
 
-    private var adapter: CatsAdapter = CatsAdapter(this)
+    private var adapter: CatsAdapter = CatsAdapter(this, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         activityComponent.plus(FragmentModule()).inject(this)
@@ -104,6 +114,7 @@ class CatsFragment :
 
         private const val COLUMN_COUNT = 1
         private const val TRIGGER_THRESHOLD = 1
+        private const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1
 
         @JvmStatic
         fun newInstance() = CatsFragment().apply {
@@ -114,6 +125,67 @@ class CatsFragment :
 
     override fun addFavorite(imageUrl: String) {
         presenter.addFavorite(imageUrl, requireContext())
+    }
+
+    override fun downloadImage(imageUrl: String) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+            && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
+        ) {
+            askPermissions(imageUrl)
+        } else {
+            presenter.downloadImage(imageUrl, requireContext())
+        }
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    fun askPermissions(imageUrl: String) {
+        if (context?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    WRITE_EXTERNAL_STORAGE
+                )
+            } != PackageManager.PERMISSION_GRANTED) {
+            handleRequestPermission()
+        } else {
+            presenter.downloadImage(imageUrl, view?.context!!)
+        }
+    }
+
+    private fun handleRequestPermission() {
+
+        // Permission is not granted
+        // Should we show an explanation?
+        val shouldShowRationale =
+            shouldShowRequestPermissionRationale(context as Activity, WRITE_EXTERNAL_STORAGE)
+
+        if (shouldShowRationale) {
+
+            AlertDialog.Builder(context)
+                .setTitle(R.string.permission_required)
+                .setMessage(R.string.permission_required_long)
+                .setPositiveButton(R.string.allow) { dialog, id ->
+                    requestPermissions(
+                        context as Activity,
+                        arrayOf(WRITE_EXTERNAL_STORAGE),
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE
+                    )
+
+                }
+                .setNegativeButton(R.string.deny) { dialog, _ -> dialog.cancel() }
+                .show()
+
+        } else {
+
+            requestPermissions(
+                context as Activity,
+                arrayOf(WRITE_EXTERNAL_STORAGE),
+                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE
+            )
+
+        }
+
     }
 
 }

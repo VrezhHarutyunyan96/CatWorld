@@ -14,7 +14,10 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.item_cat.view.*
 
-class CatsAdapter(private var addFavoriteListener: AddFavoriteListener) :
+class CatsAdapter(
+    private var addFavoriteListener: AddFavoriteListener,
+    private var downloadImageListener: DownloadImageListener
+) :
     RecyclerView.Adapter<CatsAdapter.CatsViewHolder>() {
 
     private var catsList: MutableList<Cat> = mutableListOf()
@@ -74,12 +77,20 @@ class CatsAdapter(private var addFavoriteListener: AddFavoriteListener) :
                 addFavoriteListener.addFavorite(cat.imageUrl)
             }
 
+            itemView.download.setOnClickListener {
+                downloadImageListener.downloadImage(cat.imageUrl)
+            }
+
         }
 
     }
 
     interface AddFavoriteListener {
         fun addFavorite(imageUrl: String)
+    }
+
+    interface DownloadImageListener {
+        fun downloadImage(imageUrl: String)
     }
 
 }
