@@ -38,13 +38,13 @@ android {
 ext {
 
     moxyVersion = "1.5.3"
-    daggerVersion = "2.20"
+    daggerVersion = "2.29.1"
+    daggerAndroidVersion = "2.20"
     rxVersion = "3.0.0"
     glideVersion = "4.11.0"
     retrofitVersion = "2.9.0"
     okHttpVersion = "4.9.0"
     roomVersion = "2.2.5"
-    multidexVersion = "2.0.1"
 
 }
 
@@ -65,11 +65,11 @@ dependencies {
     kapt "com.arello-mobile:moxy-compiler:$moxyVersion"
 
     // Dagger2
-    implementation "com.google.dagger:dagger:2.29.1"
-    implementation "com.google.dagger:dagger-android:$daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:2.29.1"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerAndroidVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerAndroidVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerAndroidVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     // Rx
     implementation "io.reactivex.rxjava3:rxandroid:$rxVersion"
@@ -87,13 +87,13 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
-    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofitVersion"
 
     // Material design
     implementation 'com.google.android.material:material:1.2.1'
 
     // Multidex
-    implementation "androidx.multidex:multidex:$multidexVersion"
+    implementation "androidx.multidex:multidex:2.0.1"
 
     //Log
     implementation "com.jakewharton.timber:timber:4.7.1"
