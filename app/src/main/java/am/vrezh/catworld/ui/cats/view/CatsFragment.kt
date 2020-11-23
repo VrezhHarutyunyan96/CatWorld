@@ -53,7 +53,7 @@ class CatsFragment :
     private fun setRecyclerView() {
 
         catsList.adapter = adapter
-        val gridLayoutManager = GridLayoutManager(requireContext(), 1)
+        val gridLayoutManager = GridLayoutManager(requireContext(), COLUMN_COUNT)
         catsList.layoutManager = gridLayoutManager
         val dividerItemDecoration = DividerItemDecoration(
             requireContext(),
@@ -87,7 +87,7 @@ class CatsFragment :
 
         Paginate.with(catsList, catsPaginateCallback)
             .addLoadingListItem(false)
-            .setLoadingTriggerThreshold(1)
+            .setLoadingTriggerThreshold(TRIGGER_THRESHOLD)
             .build()
 
     }
@@ -101,6 +101,9 @@ class CatsFragment :
     }
 
     companion object {
+
+        private const val COLUMN_COUNT = 1
+        private const val TRIGGER_THRESHOLD = 1
 
         @JvmStatic
         fun newInstance() = CatsFragment().apply {

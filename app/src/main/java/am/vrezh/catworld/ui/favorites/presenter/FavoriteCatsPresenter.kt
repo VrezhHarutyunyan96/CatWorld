@@ -15,6 +15,7 @@ class FavoriteCatsPresenter @Inject internal constructor(
 ) : BaseMvpPresenter<FavoriteCatsView>() {
 
     fun loadFavoriteCats() {
+
         Observable.fromCallable { CatWorldApplication.catWorldDb.favoriteCatDao().getAll() }
             .compose(rxSchedulers.ioToMain())
             .progress()

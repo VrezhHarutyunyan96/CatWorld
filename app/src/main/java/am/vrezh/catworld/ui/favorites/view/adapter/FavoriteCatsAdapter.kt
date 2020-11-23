@@ -21,7 +21,7 @@ class FavoriteCatsAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteCatsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val itemView = layoutInflater.inflate(R.layout.item_cat, parent, false)
+        val itemView = layoutInflater.inflate(R.layout.item_favorite_cat, parent, false)
         return FavoriteCatsViewHolder(itemView)
     }
 
@@ -45,6 +45,7 @@ class FavoriteCatsAdapter :
             Glide.with(itemView)
                 .load(favoriteCat.imageLocalUrl)
                 .listener(object : RequestListener<Drawable> {
+
                     override fun onResourceReady(
                         resource: Drawable?,
                         model: Any?,
@@ -65,6 +66,7 @@ class FavoriteCatsAdapter :
                         itemView.cat_pb.visibility = View.GONE
                         return false
                     }
+
                 })
                 .into(itemView.cat_iv)
 
