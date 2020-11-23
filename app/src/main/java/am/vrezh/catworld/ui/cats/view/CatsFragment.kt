@@ -18,7 +18,10 @@ import com.paginate.Paginate
 import kotlinx.android.synthetic.main.cats_fragment.*
 import javax.inject.Inject
 
-class CatsFragment : BaseMvpFragment(), CatsView {
+class CatsFragment :
+    BaseMvpFragment(),
+    CatsView,
+    CatsAdapter.AddFavoriteListener {
 
     @Inject
     @InjectPresenter
@@ -27,7 +30,7 @@ class CatsFragment : BaseMvpFragment(), CatsView {
     @ProvidePresenter
     fun providePresenter(): CatsPresenter = presenter
 
-    private var adapter: CatsAdapter = CatsAdapter()
+    private var adapter: CatsAdapter = CatsAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         activityComponent.plus(FragmentModule()).inject(this)
@@ -104,6 +107,10 @@ class CatsFragment : BaseMvpFragment(), CatsView {
             arguments = Bundle().apply {}
         }
 
+    }
+
+    override fun addFavorite(imageUrl: String) {
+        presenter.addFavorite(imageUrl, view?.context!!)
     }
 
 }

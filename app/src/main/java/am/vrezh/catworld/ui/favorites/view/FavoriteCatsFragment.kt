@@ -1,11 +1,10 @@
 package am.vrezh.catworld.ui.favorites.view
 
 import am.vrezh.catworld.R
-import am.vrezh.catworld.api.models.Cat
+import am.vrezh.catworld.db.FavoriteCat
 import am.vrezh.catworld.di.fragment.FragmentModule
-import am.vrezh.catworld.ui.cats.presenter.CatsPresenter
-import am.vrezh.catworld.ui.cats.view.CatsView
-import am.vrezh.catworld.ui.cats.view.adapter.CatsAdapter
+import am.vrezh.catworld.ui.favorites.presenter.FavoriteCatsPresenter
+import am.vrezh.catworld.ui.favorites.view.adapter.FavoriteCatsAdapter
 import am.vrezh.catworld.ui.moxy.BaseMvpFragment
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,20 +14,19 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.paginate.Paginate
 import kotlinx.android.synthetic.main.cats_fragment.*
 import javax.inject.Inject
 
-class FavoriteCatsFragment : BaseMvpFragment(), CatsView {
+class FavoriteCatsFragment : BaseMvpFragment(), FavoriteCatsView {
 
     @Inject
     @InjectPresenter
-    lateinit var presenter: CatsPresenter
+    lateinit var presenter: FavoriteCatsPresenter
 
-    private var adapter: CatsAdapter = CatsAdapter()
+    private var adapter: FavoriteCatsAdapter = FavoriteCatsAdapter()
 
     @ProvidePresenter
-    fun providePresenter(): CatsPresenter = presenter
+    fun providePresenter(): FavoriteCatsPresenter = presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         activityComponent.plus(FragmentModule()).inject(this)
@@ -63,33 +61,8 @@ class FavoriteCatsFragment : BaseMvpFragment(), CatsView {
 
     }
 
-    override fun addCats(catsList: List<Cat>) {
-        adapter.addData(catsList)
-    }
-
-    override fun setPagination() {
-
-        val catsPaginateCallback = object : Paginate.Callbacks {
-
-            override fun onLoadMore() {
-                presenter.loadNextPage()
-            }
-
-            override fun isLoading(): Boolean {
-                return presenter.loadingInProgress
-            }
-
-            override fun hasLoadedAllItems(): Boolean {
-                return presenter.hasLoadedAllItems
-            }
-
-        }
-
-        Paginate.with(catsList, catsPaginateCallback)
-            .addLoadingListItem(false)
-            .setLoadingTriggerThreshold(1)
-            .build()
-
+    override fun addFavoriteCats(favoriteCatsList: List<FavoriteCat>) {
+        adapter.addData(favoriteCatsList)
     }
 
     override fun showProgress() {

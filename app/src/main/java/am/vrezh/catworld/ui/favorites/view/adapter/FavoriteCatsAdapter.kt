@@ -1,7 +1,7 @@
-package am.vrezh.catworld.ui.cats.view.adapter
+package am.vrezh.catworld.ui.favorites.view.adapter
 
 import am.vrezh.catworld.R
-import am.vrezh.catworld.api.models.Cat
+import am.vrezh.catworld.db.FavoriteCat
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
@@ -14,35 +14,35 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.item_cat.view.*
 
-class CatsAdapter(private var addFavoriteListener: AddFavoriteListener) :
-    RecyclerView.Adapter<CatsAdapter.CatsViewHolder>() {
+class FavoriteCatsAdapter :
+    RecyclerView.Adapter<FavoriteCatsAdapter.FavoriteCatsViewHolder>() {
 
-    private var catsList: MutableList<Cat> = mutableListOf()
+    private var favoriteCatsList: MutableList<FavoriteCat> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteCatsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemView = layoutInflater.inflate(R.layout.item_cat, parent, false)
-        return CatsViewHolder(itemView)
+        return FavoriteCatsViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: CatsViewHolder, position: Int) {
-        val cat = catsList[position]
-        holder.bind(cat)
+    override fun onBindViewHolder(holder: FavoriteCatsViewHolder, position: Int) {
+        val favoriteCat = favoriteCatsList[position]
+        holder.bind(favoriteCat)
     }
 
-    override fun getItemCount(): Int = catsList.size
+    override fun getItemCount(): Int = favoriteCatsList.size
 
-    fun addData(catsList: List<Cat>) {
-        this.catsList.addAll(catsList)
+    fun addData(favoriteCatsList: List<FavoriteCat>) {
+        this.favoriteCatsList.addAll(favoriteCatsList)
         notifyDataSetChanged()
     }
 
-    inner class CatsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class FavoriteCatsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(cat: Cat) {
+        fun bind(favoriteCat: FavoriteCat) {
 
             Glide.with(itemView)
-                .load(cat.imageUrl)
+                .load(favoriteCat.imageLocalUrl)
                 .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(
                         resource: Drawable?,
@@ -67,17 +67,8 @@ class CatsAdapter(private var addFavoriteListener: AddFavoriteListener) :
                 })
                 .into(itemView.cat_iv)
 
-            itemView.like_ib.setOnClickListener {
-                itemView.like_ib.setImageResource(R.drawable.ic_favorite_filled)
-                addFavoriteListener.addFavorite(cat.imageUrl)
-            }
-
         }
 
-    }
-
-    interface AddFavoriteListener {
-        fun addFavorite(imageUrl: String)
     }
 
 }
