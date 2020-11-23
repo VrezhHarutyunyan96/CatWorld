@@ -14,6 +14,11 @@ class FavoriteCatsPresenter @Inject internal constructor(
     private val rxSchedulers: RxSchedulers,
 ) : BaseMvpPresenter<FavoriteCatsView>() {
 
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        loadFavoriteCats()
+    }
+
     fun loadFavoriteCats() {
 
         Observable.fromCallable { CatWorldApplication.catWorldDb.favoriteCatDao().getAll() }
