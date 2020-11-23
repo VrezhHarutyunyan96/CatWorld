@@ -110,7 +110,7 @@ class CatsFragment :
     }
 
     override fun addFavorite(imageUrl: String) {
-        presenter.addFavorite(imageUrl, view?.context!!)
+        presenter.addFavorite(imageUrl, requireContext())
     }
 
 }

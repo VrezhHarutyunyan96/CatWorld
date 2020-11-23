@@ -6,6 +6,7 @@ import am.vrezh.catworld.di.fragment.FragmentModule
 import am.vrezh.catworld.ui.favorites.presenter.FavoriteCatsPresenter
 import am.vrezh.catworld.ui.favorites.view.adapter.FavoriteCatsAdapter
 import am.vrezh.catworld.ui.moxy.BaseMvpFragment
+import am.vrezh.catworld.utils.Prefs
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +46,16 @@ class FavoriteCatsFragment : BaseMvpFragment(), FavoriteCatsView {
         super.onViewCreated(view, savedInstanceState)
 
         setRecyclerView()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (Prefs.getFavoriteChanged()) {
+            presenter.loadFavoriteCats()
+            Prefs.setFavoriteChanged(false)
+        }
 
     }
 

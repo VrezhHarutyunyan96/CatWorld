@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class FavoriteCat(
-    @PrimaryKey val id: Int,
     @ColumnInfo(name = "image_local_url") val imageLocalUrl: String?
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}

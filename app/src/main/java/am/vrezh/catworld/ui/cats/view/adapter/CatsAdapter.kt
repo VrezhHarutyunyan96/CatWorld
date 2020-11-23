@@ -44,6 +44,7 @@ class CatsAdapter(private var addFavoriteListener: AddFavoriteListener) :
             Glide.with(itemView)
                 .load(cat.imageUrl)
                 .listener(object : RequestListener<Drawable> {
+
                     override fun onResourceReady(
                         resource: Drawable?,
                         model: Any?,
@@ -64,6 +65,7 @@ class CatsAdapter(private var addFavoriteListener: AddFavoriteListener) :
                         itemView.cat_pb.visibility = View.GONE
                         return false
                     }
+
                 })
                 .into(itemView.cat_iv)
 

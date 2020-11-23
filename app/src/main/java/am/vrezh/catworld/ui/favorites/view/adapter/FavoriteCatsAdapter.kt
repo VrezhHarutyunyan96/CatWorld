@@ -33,6 +33,7 @@ class FavoriteCatsAdapter :
     override fun getItemCount(): Int = favoriteCatsList.size
 
     fun addData(favoriteCatsList: List<FavoriteCat>) {
+        this.favoriteCatsList.clear()
         this.favoriteCatsList.addAll(favoriteCatsList)
         notifyDataSetChanged()
     }
